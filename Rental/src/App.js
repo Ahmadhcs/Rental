@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LandingPage from './Screens/LandingPage';
-import UserLanding from './Screens/UserLanding';
-import ManagerLanding from './Screens/ManagerLanding';
+import LandingPage from './Screens/LandingPage.js';
+import UserLanding from './Screens/UserLanding.js';
+import ManagerLanding from './Screens/ManagerLanding.js';
 function App() {
   return (
     <Router>

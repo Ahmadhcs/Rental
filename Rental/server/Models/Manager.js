@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const Schema = mongoose.Schema; 
 
-const UserSchema = new Schema({
+const ManagerSchema = new Schema({
     firstName: {
         type: String
     }, 
@@ -17,10 +17,8 @@ const UserSchema = new Schema({
         type: String
     }
 
-
-
 })
 
-const User = mongoose.models.User || mongoose.model("User", UserSchema);
+const Manager = mongoose.models.Manager || mongoose.model("Manager", ManagerSchema);
 
-export default User;
+export default Manager;

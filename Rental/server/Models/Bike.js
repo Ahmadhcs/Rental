@@ -20,3 +20,7 @@ const BikeSchema = new Schema({
     }
 
 })
+
+const Bike = mongoose.models.Bike || mongoose.model("Bike", BikeSchema);
+
+export default Bike;
