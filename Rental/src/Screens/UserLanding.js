@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios"
 
 const UserLanding = () => {
+  // Navigation 
   const navigate = useNavigate();
 
   // Local state for login form
@@ -9,11 +11,33 @@ const UserLanding = () => {
   const [password, setPassword] = useState('');
 
   // Function to handle form submission
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    // Perform login logic here
     console.log(email, password);
-    // After login logic, maybe navigate to user's dashboard
+    try{
+      const response = await axios.post("http://localhost:8001/api/signIn", {
+        email,
+        password
+      })
+
+      console.log(response)
+
+
+
+      if (response.status === 200) {
+        alert("Submitted successfully!");
+        navigate("/create-account")
+      } else {
+        console.error("API call failed:", response);
+        alert("Submission failed.");
+      }
+
+
+
+
+    }catch (error){
+      console.log(error)
+    }
     // navigate('/dashboard');
   };
 
@@ -49,6 +73,7 @@ const UserLanding = () => {
           </div>
           <button
             type="submit"
+            onClick={handleLogin}
             className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
           >
             Log in
@@ -56,7 +81,6 @@ const UserLanding = () => {
         </form>
         <div className="mt-6 text-center">
           <button
-            onClick={navigate("/create-account")}
             className="text-blue-600 hover:underline"
           >
             Create an account
