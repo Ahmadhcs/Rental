@@ -1,7 +1,9 @@
 import express from 'express';
 import mongoose from "mongoose"
 import dotenv from "dotenv";
-
+import cors from "cors";
+import morgan from "morgan";
+import authRoutes from "./routes/authRoutes.js"
 dotenv.config();
 
 const app = express();
@@ -20,9 +22,19 @@ try{
 }
 
 
+
+
 app.get('/', (req, res) => {
   res.send('Hello World with ES6!');
 });
+
+app.use("/api", authRoutes);
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(morgan("dev"));
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
