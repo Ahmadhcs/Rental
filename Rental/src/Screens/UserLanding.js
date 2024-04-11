@@ -81,6 +81,7 @@ const UserLanding = () => {
         </form>
         <div className="mt-6 text-center">
           <button
+          onClick={() => navigate("/createUser")}
             className="text-blue-600 hover:underline"
           >
             Create an account
