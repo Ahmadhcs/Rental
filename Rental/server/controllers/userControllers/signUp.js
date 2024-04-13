@@ -1,5 +1,5 @@
-import User from "../../Models/User"
-import { hashedPassword } from "../../helpers/auth";
+import User from "../../Models/User.js"
+import { hashedPassword } from "../../helpers/auth.js";
 export const signUp = async(req, res) =>{
     const {email, password, firstName, lastName} = req.body
     try{
@@ -18,10 +18,10 @@ export const signUp = async(req, res) =>{
         }
 
 
-        const hashedPassword = await hashedPassword(password)
+        const theHashedPassword = await hashedPassword(password)
         const user = await new User({
             email, 
-            password : hashedPassword,
+            password : theHashedPassword,
             firstName, 
             lastName 
         }).save()

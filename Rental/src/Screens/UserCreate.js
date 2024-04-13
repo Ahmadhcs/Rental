@@ -21,15 +21,22 @@ const UserCreate = () => {
     }
 
     try {
-        console.log('he')
-      const response = await axios.post("http://localhost:8001/api/signUp", {
-        firstName,
-        lastName,
-        email,
-        password
-      });
+    //   const response = await axios.post("http://localhost:8001/api/signUp", {
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     password
+    //   });
 
-      console.log('hewdwd')
+      console.log(firstName)
+
+    const response = await axios.post("http://localhost:8001/api/signUp", 
+    {
+        firstName, 
+        lastName, 
+        email, 
+        password
+    })
 
 
       if (response.status === 200 || response.status === 201) {
