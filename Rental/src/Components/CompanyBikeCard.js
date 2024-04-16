@@ -1,7 +1,22 @@
 import { useState } from "react";
+import axios from "axios"
 
 const CompanyBikeCard = ({bike}) =>{
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleDelete = async() =>{
+        console.log(bike)
+        try{
+            const response = await axios.delete(`http://localhost:8001/api/deleteBike?bikeID=${bike._id}`)
+
+        }catch(error){
+            console.log(error)
+
+        }
+
+
+        toggleModal()
+    }
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
@@ -33,7 +48,7 @@ const CompanyBikeCard = ({bike}) =>{
                     <button onClick={toggleModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Edit
                     </button>
-                    <button onClick={toggleModal} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">
+                    <button onClick={handleDelete} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">
                         Delete
                     </button>
                     <button onClick={toggleModal} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded ml-4">

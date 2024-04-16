@@ -1,7 +1,8 @@
 import Bike from "../../Models/Bike.js";
 
 export const deleteBike = async (req, res) => {
-    const { bikeID } = req.body;
+    const bikeID = req.query.bikeID;
+
 
     if (!bikeID) {
         return res.status(400).json({ message: "Bike ID must be provided" });
