@@ -12,7 +12,7 @@ const BikeSchema = new Schema({
     location: {
         type: String
     }, 
-    Rating: {
+    rating: {
         type: Number
     }, 
     available: {
@@ -22,6 +22,9 @@ const BikeSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Manager", 
         required: false,
+    }, 
+    bikeID: {
+        type : String 
     }
 
 })

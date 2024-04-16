@@ -24,8 +24,9 @@ const ManagerLanding = () =>{
 
 
       if (response.status === 200) {
-        alert("Submitted successfully!");
-        navigate("/create-account")
+        localStorage.setItem("token", response.data.token)
+        localStorage.setItem("ID", response.data.manager._id)
+        navigate("/ManagerDash")
       } else {
         console.error("API call failed:", response);
         alert("Submission failed.");

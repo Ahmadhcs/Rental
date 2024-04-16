@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
 
 
 export const hashedPassword = (password) => {
@@ -20,5 +21,10 @@ export const hashedPassword = (password) => {
 
 export const comparePassword = (password, hashed) => {
     return bcrypt.compare(password, hashed);
+  };
+  
+
+  export const generateToken = (ID) => {
+    return jwt.sign({ ID }, process.env.SECRET_KEY, { expiresIn: "24h" });
   };
   

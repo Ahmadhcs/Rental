@@ -5,6 +5,7 @@ import cors from "cors";
 import morgan from "morgan";
 import authRoutes from "./routes/authRoutes.js";
 import bikeRoutes from "./routes/bikeRoutes.js"
+import managerRoutes from "./routes/managerRoutes.js"
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 });
 app.use("/api", authRoutes);
 app.use("/api", bikeRoutes);
+app.use("/api", managerRoutes)
 
 
 // Server Start

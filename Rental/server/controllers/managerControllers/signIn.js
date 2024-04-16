@@ -1,4 +1,5 @@
 import Manager from "../../Models/Manager.js"
+import { generateToken } from "../../helpers/auth.js"
 import { comparePassword } from "../../helpers/auth.js"
 
 export const signIn = async(req, res) =>{
@@ -12,7 +13,7 @@ export const signIn = async(req, res) =>{
               });
         }
 
-        const match = await comparePassword(password, user.password)
+        const match = await comparePassword(password, manager.password)
 
         if (!match) {
             return res.status(401).json({
@@ -23,8 +24,13 @@ export const signIn = async(req, res) =>{
 
         delete manager.password
 
+        const token =  generateToken(manager._id)
 
-        return res.json({manager})
+
+        return res.json({
+          manager,
+          token
+        })
     
 
 
