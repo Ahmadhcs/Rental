@@ -1,49 +1,50 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
-const UserCreate = () => {
-  const navigate = useNavigate();
+const ManagerCreate = () =>{
+    const navigate = useNavigate();
 
-  // Local state for the account creation form
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
-  const handleCreateAccount = async (event) => {
-    event.preventDefault();
-
-    if (password !== confirmPassword) {
-      alert('Passwords do not match.');
-      return;
-    }
-
-    try {
-
-
-    const response = await axios.post("http://localhost:8001/api/signUp", 
-    {
-        firstName, 
-        lastName, 
-        email, 
-        password
-    })
-
-
-      if (response.status === 200 || response.status === 201) {
-        alert("Account created successfully!");
-        navigate("/UserDash"); 
-      } else {
-        console.error("API call failed:", response);
-        alert("Account creation failed.");
+    // Local state for the account creation form
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+  
+    const handleCreateAccount = async (event) => {
+      event.preventDefault();
+  
+      if (password !== confirmPassword) {
+        alert('Passwords do not match.');
+        return;
       }
-    } catch (error) {
-      console.error(error);
-      alert("An error occurred during account creation.");
-    }
-  };
+  
+      try {
+  
+  
+      const response = await axios.post("http://localhost:8001/api/managerSignUp", 
+      {
+          firstName, 
+          lastName, 
+          email, 
+          password
+      })
+  
+  
+        if (response.status === 200 || response.status === 201) {
+          alert("Account created successfully!");
+          navigate("/ManagerDash"); 
+        } else {
+          console.error("API call failed:", response);
+          alert("Account creation failed.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("An error occurred during account creation.");
+      }
+    };
+    
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
@@ -127,7 +128,9 @@ const UserCreate = () => {
         </div>
       </div>
     </div>
-  );
-};
+        
 
-export default UserCreate;
+    )
+}
+
+export default ManagerCreate

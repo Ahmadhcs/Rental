@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
 import authRoutes from "./routes/authRoutes.js";
+import bikeRoutes from "./routes/bikeRoutes.js"
 
 dotenv.config();
 
@@ -26,6 +27,8 @@ app.get('/', (req, res) => {
   res.send('Hello World with ES6!');
 });
 app.use("/api", authRoutes);
+app.use("/api", bikeRoutes);
+
 
 // Server Start
 app.listen(port, () => {

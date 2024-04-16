@@ -1,14 +1,14 @@
-import User from "../../Models/User.js"
+import Manager from "../../Models/Manager.js"
 import { comparePassword } from "../../helpers/auth.js"
 
 export const signIn = async(req, res) =>{
     const {email, password } = req.body
     try{
-        const user = await User.findOne({email})
+        const manager = await Manager.findOne({email})
 
-        if(!user){
+        if(!manager){
             return res.status(404).json({
-                error: "No user found",
+                error: "No managera account found",
               });
         }
 
@@ -21,10 +21,10 @@ export const signIn = async(req, res) =>{
           }
 
 
-        delete user.password
+        delete manager.password
 
 
-        return res.json({user})
+        return res.json({manager})
     
 
 

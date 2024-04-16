@@ -16,7 +16,12 @@ const BikeSchema = new Schema({
         type: Number
     }, 
     available: {
-        type: boolean
+        type: Boolean
+    },
+    managerID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Manager", 
+        required: false,
     }
 
 })

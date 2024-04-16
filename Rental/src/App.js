@@ -4,7 +4,10 @@ import LandingPage from './Screens/LandingPage.js';
 import UserLanding from './Screens/UserLanding.js';
 import UserCreate from './Screens/UserCreate.js';
 import ManagerLanding from './Screens/ManagerLanding.js';
+import ManagerCreate from './Screens/ManagerCreate.js';
 import UserDashBoard  from "./Screens/UserDashBoard.js"
+import ManagerBikes from './Screens/ManagerBikes.js';
+import ManagerDash from './Screens/ManagerDash.js';
 function App() {
   return (
     <Router>
@@ -15,10 +18,15 @@ function App() {
         <Route path="/userLanding" element={<UserLanding />} />
         <Route path="/managerLanding" element={<ManagerLanding />} />
         <Route path='/createUser' element={<UserCreate />} />
+        <Route path='/createManager' element={<ManagerCreate />} />
+
 
 
         {/* User and Manager Menus */}
         <Route path="/UserDash" element={<UserDashBoard />} />
+        <Route path="/ManagerDash" element={<ManagerDash />} />
+        <Route path='/ManagerBikes' element={<ManagerBikes />} /> 
+
         
 
       </Routes>
