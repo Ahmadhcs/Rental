@@ -12,9 +12,6 @@ const BikeSchema = new Schema({
     location: {
         type: String
     }, 
-    rating: {
-        type: Number
-    }, 
     available: {
         type: Boolean
     },
@@ -25,7 +22,12 @@ const BikeSchema = new Schema({
     }, 
     bikeID: {
         type : String 
-    }
+    }, 
+    rating: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Ratings", 
+            required: false
+        }]
 
 })
 

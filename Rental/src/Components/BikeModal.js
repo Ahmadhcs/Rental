@@ -1,5 +1,6 @@
 // src/BikeModal.js
 import React, { useState } from 'react';
+import axios from "axios"
 
 const BikeModal = ({ bike, onClose }) => {
   const [rating, setRating] = useState(bike.rating);
@@ -9,6 +10,23 @@ const BikeModal = ({ bike, onClose }) => {
     // Placeholder for reservation logic
     setReserved(true);
   };
+
+  const handleRate = async() =>{
+
+    try{
+      const response = await axios.post("http://localhost:8001/api/rateBike", {
+        userID: localStorage.getItem("ID"), 
+        bikeID: bike._id,
+        rating
+      })
+
+      // if(response.status) send alert that it sas successfull 
+
+    }catch(error){
+
+    }
+
+  }
 
   const handleRatingChange = (e) => {
     setRating(e.target.value);
@@ -57,6 +75,12 @@ const BikeModal = ({ bike, onClose }) => {
               Cancel Reservation
             </button>
           )}
+        </div>
+
+        <div className="mt-4">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleRate}>
+              Rate
+            </button>
         </div>
       </div>
     </div>
