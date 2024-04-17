@@ -7,6 +7,8 @@ const BikeProfile = ({ bike }) => {
 
   const toggleModal = () => setShowModal(!showModal);
 
+  console.log(bike)
+
   return (
     <div>
       <div className="bg-white shadow-md rounded p-6 m-4 flex items-center justify-between" onClick={toggleModal}>
@@ -14,7 +16,7 @@ const BikeProfile = ({ bike }) => {
           <h2 className="text-lg font-bold">{bike.model}</h2>
           <p>Color: {bike.color}</p>
           <p>Location: {bike.location}</p>
-          <p>Rating: {bike.rating} / 5</p>
+          <p>Rating: {bike.averageRating} / 5</p>
         </div>
         <img src={bike.imageUrl} alt={`${bike.model}`} className="w-24 h-24 rounded-full" />
       </div>

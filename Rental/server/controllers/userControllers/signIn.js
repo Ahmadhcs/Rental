@@ -1,5 +1,5 @@
 import User from "../../Models/User.js"
-import { comparePassword } from "../../helpers/auth.js"
+import { comparePassword, generateToken } from "../../helpers/auth.js"
 
 export const signIn = async(req, res) =>{
     const {email, password } = req.body
@@ -23,8 +23,9 @@ export const signIn = async(req, res) =>{
 
         delete user.password
 
+        const token =  generateToken(user._id)
 
-        return res.json({user})
+        return res.json({user, token})
     
 
 

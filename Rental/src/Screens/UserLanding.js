@@ -20,16 +20,18 @@ const UserLanding = () => {
         password
       })
 
+
+
       console.log(response)
 
 
 
-      if (response.status === 200) {
-        alert("Submitted successfully!");
-        navigate("/create-account")
+       if (response.status === 200) {
+        localStorage.setItem("token", response.data.token)
+        localStorage.setItem("ID", response.data.user._id)
+        navigate("/UserDash")
       } else {
         console.error("API call failed:", response);
-        alert("Submission failed.");
       }
 
 

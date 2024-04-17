@@ -54,7 +54,7 @@ const BikeModal = ({ bike, onClose }) => {
         <h2 className="text-lg font-bold mb-4">{bike.model}</h2>
         <div className="mb-4">Color: {bike.color}</div>
         <div className="mb-4">Location: {bike.location}</div>
-        <div className="mb-4">Rating: {rating} / 5</div>
+        <div className="mb-4">Rating: {bike.averageRating} / 5</div>
 
         <div>
           <label htmlFor="rating" className="block mb-2">Rate the bike:</label>

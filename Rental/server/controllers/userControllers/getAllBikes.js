@@ -1,11 +1,30 @@
 import Bike from "../../Models/Bike.js"
+import Ratings from "../../Models/Ratings.js";
 export const getAllBikes = async(req, res) => {
     try{
 
-        const bikes = await Bike.find();
+        const bikesWithRatings = await Bike.aggregate([
+            {
+                $lookup: {
+                    from: "ratings", 
+                    localField: "_id",
+                    foreignField: "bike",
+                    as: "ratings"
+                }
+            },
+            {
+                $addFields: {
+                    averageRating: { $avg: "$ratings.rating" }
+                }
+            },
+            {
+                $project: {
+                    ratings: 0 
+                }
+            }
+        ]);
 
-        res.send({bikes})
-
+        res.status(200).send({ bikes: bikesWithRatings });
     }catch(error){
         console.log(error)
     }
