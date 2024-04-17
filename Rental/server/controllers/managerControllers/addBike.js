@@ -1,18 +1,21 @@
 import Bike from "../../Models/Bike.js"
-import { generateId } from "../../helpers/generareID.js"
+import Manager from "../../Models/Manager.js"
 export const addBike = async (req, res) =>{
-    const {model, location, color, companyID} = req.body
+    const {model, location, color, managerID} = req.body
     try{
 
-        console.log("here for bikes")
-        const bikeID = generateId()
+
+        const managerExists = await Manager.exists({ _id: managerID });
+        if (!managerExists) {
+          return res.status(404).json({ error: "manager not found" });
+        }
+        
+
         const newBike = await new Bike({
             model,
             location, 
-            rating: 0, 
             color, 
-            companyID, 
-            bikeID,
+            managerID, 
 
         }).save()
         console.log(newBike)

@@ -20,9 +20,6 @@ const BikeSchema = new Schema({
         ref: "Manager", 
         required: false,
     }, 
-    bikeID: {
-        type : String 
-    }, 
     rating: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Ratings", 

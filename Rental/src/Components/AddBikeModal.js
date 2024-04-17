@@ -12,7 +12,7 @@ const AddBikeModal = ({ isOpen, onClose }) => {
     const handleSave = async() => {
         try{
             const response = await axios.post("http://localhost:8001/api/addBike", {
-                companyID: localStorage.getItem("ID"), 
+                managerID: localStorage.getItem("ID"), 
                 model, 
                 color, 
                 location
