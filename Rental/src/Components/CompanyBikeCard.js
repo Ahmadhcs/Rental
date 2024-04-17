@@ -1,8 +1,14 @@
 import { useState } from "react";
 import axios from "axios"
+import EditBikeModal from "./EditBikeModal.js";
 
 const CompanyBikeCard = ({bike}) =>{
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+    const handleEdit = async() => {
+        setIsEditModalOpen(true);
+    }
 
     const handleDelete = async() =>{
         console.log(bike)
@@ -45,7 +51,7 @@ const CompanyBikeCard = ({bike}) =>{
             <div className="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <div className="bg-white p-5 rounded">
                     <h2 className="text-xl font-bold mb-4">Manage Bike</h2>
-                    <button onClick={toggleModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <button onClick={handleEdit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Edit
                     </button>
                     <button onClick={handleDelete} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4">
@@ -57,6 +63,17 @@ const CompanyBikeCard = ({bike}) =>{
                 </div>
             </div>
         )}
+
+        {isEditModalOpen && (
+                <EditBikeModal 
+                    bike={bike} 
+                    onClose={() => setIsEditModalOpen(false)} 
+                    onSave={(updatedBike) => {
+                        console.log(updatedBike);
+                        setIsEditModalOpen(false); 
+                    }} 
+                />
+            )}
     </div>
     )
 

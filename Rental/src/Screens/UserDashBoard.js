@@ -1,20 +1,35 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import BikeProfile from '../Components/BikeProfile.js';
-
-const bikes = [
-    { id: 1, model: 'Mountain X1', color: 'Red', location: 'Berlin', rating: 4.5 },
-    { id: 2, model: 'Speedster Z3', color: 'Blue', location: 'San Francisco', rating: 4.8 },
-  ];
+import axios from "axios"
 
 const UserDashBoard = () =>{
     const navigate = useNavigate();
+    const [bikeArray, setBikeArray] = useState([])
+
+
+
+
+    useEffect(() => {
+      const fetchBikes = async () => {
+          try {
+              const response = await axios.get('http://localhost:8001/api/getAllBikes');
+              setBikeArray(response.data.bikes); 
+          } catch (error) {
+              console.error('Error fetching data:', error);
+          }
+      };
+
+      fetchBikes();
+    }, []);
+
 
 
     return (
         <div className="p-8">
           <h1 className="font-bold text-2xl mb-4">Bike Dashboard</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {bikes.map(bike => (
+            {bikeArray.map(bike => (
               <BikeProfile key={bike.id} bike={bike} />
             ))}
           </div>
