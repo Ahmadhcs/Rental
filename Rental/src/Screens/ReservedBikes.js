@@ -41,9 +41,9 @@ const ReservedBikes = () =>{
             model: 'AWD Mountain',
             color: 'Black',
             location: 'Downtown',
-            imageUrl: '/path/to/image.jpg', // Replace with your image path
+            imageUrl: '/path/to/image.jpg', 
             reservedBy: 'John Doe',
-            reservationDuration: 120, // Duration in minutes
+            reservationDuration: 120, 
         }
     } />
         <ReservedBikeCard bike={
@@ -52,9 +52,9 @@ const ReservedBikes = () =>{
             model: 'AWD Mountain',
             color: 'Black',
             location: 'Downtown',
-            imageUrl: '/path/to/image.jpg', // Replace with your image path
+            imageUrl: '/path/to/image.jpg', 
             reservedBy: 'John Doe',
-            reservationDuration: 120, // Duration in minutes
+            reservationDuration: 120, 
         }
     } />    <ReservedBikeCard bike={
         {
@@ -62,9 +62,9 @@ const ReservedBikes = () =>{
             model: 'AWD Mountain',
             color: 'Black',
             location: 'Downtown',
-            imageUrl: '/path/to/image.jpg', // Replace with your image path
+            imageUrl: '/path/to/image.jpg', 
             reservedBy: 'John Doe',
-            reservationDuration: 120, // Duration in minutes
+            reservationDuration: 120, 
         }
     } />
             </>
