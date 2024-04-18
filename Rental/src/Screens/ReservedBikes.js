@@ -1,77 +1,41 @@
-import ReservedBikeCard from "../Components/ReservedBikeCard.js"
-import { useEffect, useState} from "react";
-import axios from "axios"
-const ReservedBikes = () =>{
-    const [reservedBikes, setReservedBikes] = useState([])
-    // setReservedBikes([
-    //     {
-    //         _id: '1',
-    //         model: 'AWD Mountain',
-    //         color: 'Black',
-    //         location: 'Downtown',
-    //         imageUrl: '/path/to/image.jpg', // Replace with your image path
-    //         reservedBy: 'John Doe',
-    //         reservationDuration: 120, // Duration in minutes
-    //     },
-    //     // ... more bikes
-    // ])
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import ReservedBikeCard from '../Components/ReservedBikeCard.js';
+import { useNavigate } from 'react-router-dom';
 
-    // useEffect(() => {
-    //     const fetchReservedBikes = async () => {
-    //         try {
-    //             const response = await axios.get('http://localhost:8001/api/getReservedBikes');
-    //             setReservedBikes(response.data.reservedBikes); 
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-  
-    //     fetchReservedBikes();
-    //   }, []);
+const ReservedBikes = () => {
+    const [reservedBikes, setReservedBikes] = useState([]);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        const fetchReservedBikes = async () => {
+            try {
+                const response = await axios.get('http://localhost:8001/api/getReservedBikes');
+                setReservedBikes(response.data.bikes);
+            } catch (error) {
+                console.error('Failed to fetch reserved bikes:', error);
+            }
+        };
 
-    return(
-            <>
-             {reservedBikes.map((bike) => (
-                <ReservedBikeCard bike={bike} />
-            ))}
-            <ReservedBikeCard bike={
-        {
-            _id: '1',
-            model: 'AWD Mountain',
-            color: 'Black',
-            location: 'Downtown',
-            imageUrl: '/path/to/image.jpg', 
-            reservedBy: 'John Doe',
-            reservationDuration: 120, 
-        }
-    } />
-        <ReservedBikeCard bike={
-        {
-            _id: '1',
-            model: 'AWD Mountain',
-            color: 'Black',
-            location: 'Downtown',
-            imageUrl: '/path/to/image.jpg', 
-            reservedBy: 'John Doe',
-            reservationDuration: 120, 
-        }
-    } />    <ReservedBikeCard bike={
-        {
-            _id: '1',
-            model: 'AWD Mountain',
-            color: 'Black',
-            location: 'Downtown',
-            imageUrl: '/path/to/image.jpg', 
-            reservedBy: 'John Doe',
-            reservationDuration: 120, 
-        }
-    } />
-            </>
-    )
+        fetchReservedBikes();
+    }, []); 
 
-}
+    return (
+        <>
+         <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4  rounded focus:outline-none focus:shadow-outline"
+                onClick={() => navigate("/managerDash")}>
+                Go Back
+            </button>
+            {reservedBikes.length > 0 ? (
+                reservedBikes.map((bike) => (
+                    <ReservedBikeCard key={bike._id} bike={bike} />
+                ))
+            ) : (
+                <p>No reserved bikes found.</p>
+            )}
+        </>
+    );
+};
 
-
-
-export default ReservedBikes
+export default ReservedBikes;

@@ -32,7 +32,7 @@ const BikeModal = ({ bike, onClose }) => {
 
   const handleCancelReservation = async () => {
     try {
-      const response = await axios.delete(`http://localhost:8001/api/cancelReservation?bikeID=${bike._id}&userID=${currentUserId}`);
+      const response = await axios.delete(`http://localhost:8001/api/cancelReserve?bikeID=${bike._id}&userID=${currentUserId}`);
       
       if (response.status === 200) {
         alert('Reservation cancelled successfully!');

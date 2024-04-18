@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios"
 import EditBikeModal from "./EditBikeModal.js";
+import bikeImage from "../Images/free-bicycle-icon-1054-thumb.png"
 
 const CompanyBikeCard = ({bike}) =>{
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +31,7 @@ const CompanyBikeCard = ({bike}) =>{
     return(
         <div className="max-w-sm rounded overflow-hidden shadow-lg p-4 bg-white">
         <div onClick={toggleModal} className="cursor-pointer">
-            <img className="w-full h-48 object-cover" src={bike.imageUrl} alt={`Bike ${bike.model}`} />
+            <img className="w-full h-48 object-cover" src={bikeImage} alt={`Bike ${bike.model}`} />
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">{bike.model}</div>
                 <p className="text-gray-700 text-base">

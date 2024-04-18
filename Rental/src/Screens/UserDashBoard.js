@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import BikeProfile from '../Components/BikeProfile.js'; // Make sure this path is correct
+import BikeProfile from '../Components/BikeProfile.js'; 
+import { useNavigate } from 'react-router-dom';
 
 const BikeDashboard = () => {
+  const navigate = useNavigate();
   const [bikeArray, setBikeArray] = useState([]);
   const [filteredBikes, setFilteredBikes] = useState([]);
   const [filters, setFilters] = useState({
@@ -25,7 +27,6 @@ const BikeDashboard = () => {
     fetchBikes();
   }, []);
 
-  // Extract unique values for model and location from bikeArray for the filter options
   const uniqueModels = [...new Set(bikeArray.map(bike => bike.model))];
   const uniqueLocations = [...new Set(bikeArray.map(bike => bike.location))];
 
@@ -41,11 +42,24 @@ const BikeDashboard = () => {
     ));
   };
 
+  const handleLogout = () =>{
+    localStorage.removeItem('ID'); 
+    localStorage.removeItem('token'); 
+    navigate('/');
+  }
+
   return (
     <div className="p-8">
-      <h1 className="font-bold text-2xl mb-4">Bike Dashboard</h1>
+      <div className='flex justify-between items-center w-full'>
+          <h1 className="font-bold text-2xl mb-4">Bike Dashboard</h1>
+          <button
+              onClick={handleLogout} // Make sure to define handleLogout or pass it as a prop
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          >
+              Logout
+          </button>
+      </div>
       <div className="mb-4 flex flex-col md:flex-row md:items-end md:space-x-2">
-        {/* Color filter dropdown */}
         <div>
           <select
             id="color-filter"
@@ -60,7 +74,6 @@ const BikeDashboard = () => {
             ))}
           </select>
         </div>
-        {/* Model filter dropdown */}
         <div>
           <select
             id="model-filter"
@@ -75,7 +88,6 @@ const BikeDashboard = () => {
             ))}
           </select>
         </div>
-        {/* Location filter dropdown */}
         <div>
           <select
             id="location-filter"
