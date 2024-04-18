@@ -1,7 +1,8 @@
 import React from 'react';
-import userImage from './user-stock-image.png';
+import userImage from '../Images/profile-icon-9.png';
 
-const UserInfoCard = ({ user }) => {
+const UserProfile = ({ user }) => {
+    console.log(user)
     return (
         <div className="flex flex-col items-center justify-center p-4 bg-white shadow-lg rounded-lg">
             <div className="text-xl font-semibold">
@@ -13,4 +14,4 @@ const UserInfoCard = ({ user }) => {
     );
 };
 
-export default UserInfoCard;
+export default UserProfile;
