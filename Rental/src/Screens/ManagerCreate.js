@@ -34,6 +34,8 @@ const ManagerCreate = () =>{
   
         if (response.status === 200 || response.status === 201) {
           alert("Account created successfully!");
+          localStorage.setItem("token", response.data.token)
+          localStorage.setItem("ID", response.data.manager._id)
           navigate("/ManagerDash"); 
         } else {
           console.error("API call failed:", response);

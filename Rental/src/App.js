@@ -8,6 +8,9 @@ import ManagerCreate from './Screens/ManagerCreate.js';
 import UserDashBoard  from "./Screens/UserDashBoard.js"
 import ManagerBikes from './Screens/ManagerBikes.js';
 import ManagerDash from './Screens/ManagerDash.js';
+import ReservedBikes from './Screens/ReservedBikes.js';
+import ViewUsers from './Screens/ViewUsers.js';
+import UsersReservedPage from './Screens/UsersReservedPage.js';
 function App() {
   return (
     <Router>
@@ -26,6 +29,11 @@ function App() {
         <Route path="/UserDash" element={<UserDashBoard />} />
         <Route path="/ManagerDash" element={<ManagerDash />} />
         <Route path='/ManagerBikes' element={<ManagerBikes />} /> 
+        <Route path='/ReservedBikes' element={<ReservedBikes />} /> 
+        <Route path="/ViewUsers" element={<ViewUsers />} />
+        <Route path="/ReservedUsers" element={<UsersReservedPage />} />
+
+
 
         
 

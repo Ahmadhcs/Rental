@@ -81,7 +81,7 @@ const ManagerLanding = () =>{
         </form>
         <div className="mt-6 text-center">
           <button
-          onClick={() => navigate("/managerDash")}
+          onClick={() => navigate("/createManager")}
             className="text-blue-600 hover:underline"
           >
             Create an account

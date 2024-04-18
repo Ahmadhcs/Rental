@@ -12,9 +12,6 @@ const BikeSchema = new Schema({
     location: {
         type: String
     }, 
-    available: {
-        type: Boolean
-    },
     managerID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Manager", 
@@ -24,7 +21,11 @@ const BikeSchema = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Ratings", 
             required: false
-        }]
+        }],
+    isReserved: { type: Boolean, default: false },
+    reservedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    reservationStart: { type: Date, default: null },
+    reservationEnd: { type: Date, default: null },
 
 })
 
