@@ -3,21 +3,25 @@ import User from "../../Models/User.js";
 
 export const getUsersReserved = async (req, res) => {
     try {
-        // fetch all bikes that are reserved and populate the reservedBy field
-        const reservedBikes = await Bike.find({ isReserved: true })
-                                        .populate('reservedBy', 'firstName lastName email');
+        // Fetch all bikes that are reserved and deeply populate the reservedBy field
+        const reservedBikes = await Bike.find({ isReserved: true }).populate({
+            path: 'reservedBy',
+            model: User,
+            select: 'firstName lastName email'  // Only select the fields you need
+        });
 
         if (reservedBikes.length === 0) {
             return res.status(404).json({ message: "No bikes are currently reserved." });
         }
 
+        // Map over the reserved bikes to structure the response
         const usersWithBikes = reservedBikes.map(bike => ({
-            user: {
+            user: bike.reservedBy ? {
                 id: bike.reservedBy._id,
                 firstName: bike.reservedBy.firstName,
                 lastName: bike.reservedBy.lastName,
                 email: bike.reservedBy.email,
-            },
+            } : null,
             bikeDetails: {
                 model: bike.model,
                 location: bike.location,
@@ -26,7 +30,9 @@ export const getUsersReserved = async (req, res) => {
             }
         }));
 
-        const uniqueUsers = Array.from(new Map(usersWithBikes.map(user => [user.user.id, user])).values());
+        const validEntries = usersWithBikes.filter(entry => entry.user !== null);
+
+        const uniqueUsers = Array.from(new Map(validEntries.map(entry => [entry.user.id, entry])).values());
 
         res.json(uniqueUsers);
     } catch (error) {

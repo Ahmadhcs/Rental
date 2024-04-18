@@ -27,7 +27,7 @@ const ManagerDash = () =>{
                 <button onClick={() =>  navigate("/ManagerBikes")}  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                     Edit Bikes
                 </button>
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                <button onClick={() => navigate("/ReservedUsers")} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                     See Users Who Reserved a Bike
                 </button>
                 <button onClick={() => navigate("/ReservedBikes")} className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
