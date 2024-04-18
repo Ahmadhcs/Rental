@@ -4,12 +4,14 @@ import axios from 'axios';
 const BikeModal = ({ bike, onClose }) => {
   const [reserved, setReserved] = useState(bike.isReserved);
   const [reservationDuration, setReservationDuration] = useState('');
+  const [rating, setRating] = useState(bike.rating);
+
   const currentUserId = localStorage.getItem('ID');  
   console.log(currentUserId)
 
   const handleReserve = async () => {
-    const reservationStart = new Date(); // Reservation starts now
-    const reservationEnd = new Date(reservationStart.getTime() + parseInt(reservationDuration) * 60000); // End time based on selected duration
+    const reservationStart = new Date(); 
+    const reservationEnd = new Date(reservationStart.getTime() + parseInt(reservationDuration) * 60000);
 
     try {
       const response = await axios.post('http://localhost:8001/api/reserveBike', {
@@ -22,13 +24,34 @@ const BikeModal = ({ bike, onClose }) => {
       if (response.status === 200) {
         alert('Bike reserved successfully!');
         setReserved(true);
-        onClose(); // Optionally close the modal
+        onClose(); 
       }
     } catch (error) {
       console.error('Error reserving bike:', error);
       alert('Error reserving bike.');
     }
   };
+
+  const handleRate = async() =>{
+
+    try{
+      const response = await axios.post("http://localhost:8001/api/rateBike", {
+        userID: localStorage.getItem("ID"), 
+        bikeID: bike._id,
+        rating
+      })
+
+
+    }catch(error){
+
+    }
+
+  }
+
+  const handleRatingChange = (e) => {
+    setRating(e.target.value);
+  };
+
 
   const handleCancelReservation = async () => {
     try {
@@ -37,7 +60,7 @@ const BikeModal = ({ bike, onClose }) => {
       if (response.status === 200) {
         alert('Reservation cancelled successfully!');
         setReserved(false);
-        onClose(); // Optionally close the modal
+        onClose(); 
       }
     } catch (error) {
       console.error('Error canceling reservation:', error);
@@ -55,7 +78,21 @@ const BikeModal = ({ bike, onClose }) => {
         <h2 className="text-lg font-bold mb-4">{bike.model}</h2>
         <div className="mb-4">Color: {bike.color}</div>
         <div className="mb-4">Location: {bike.location}</div>
-        <div className="mb-4">Rating: {bike.rating} / 5</div>
+        <div className="mb-4">Rating: {bike.averageRating} / 5</div>
+
+        <div>
+          <label htmlFor="rating" className="block mb-2">Rate the bike:</label>
+          <select id="rating" value={rating} onChange={handleRatingChange} className="border-gray-300 rounded-md">
+            {[1, 2, 3, 4, 5].map(score => (
+              <option key={score} value={score}>{score}</option>
+            ))}
+          </select>
+        </div>
+        <div className="mt-4">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleRate}>
+              Rate
+            </button>
+        </div>
 
         {!reserved ? (
           <div className="mt-4">

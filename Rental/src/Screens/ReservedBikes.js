@@ -10,8 +10,10 @@ const ReservedBikes = () => {
     useEffect(() => {
         const fetchReservedBikes = async () => {
             try {
-                const response = await axios.get('http://localhost:8001/api/getReservedBikes');
-                setReservedBikes(response.data.bikes);
+                const response = await axios.get('http://localhost:8001/api/getReservedBikes', {
+                    params: { managerID: localStorage.getItem("ID") }
+                });
+                setReservedBikes(response.data);
             } catch (error) {
                 console.error('Failed to fetch reserved bikes:', error);
             }
@@ -19,6 +21,8 @@ const ReservedBikes = () => {
 
         fetchReservedBikes();
     }, []); 
+
+    console.log(reservedBikes)
 
     return (
         <>
@@ -29,7 +33,7 @@ const ReservedBikes = () => {
             </button>
             {reservedBikes.length > 0 ? (
                 reservedBikes.map((bike) => (
-                    <ReservedBikeCard key={bike._id} bike={bike} />
+                    <ReservedBikeCard  bike={bike} />
                 ))
             ) : (
                 <p>No reserved bikes found.</p>

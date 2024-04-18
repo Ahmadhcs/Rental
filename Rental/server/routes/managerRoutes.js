@@ -4,6 +4,7 @@ import { signUp } from "../controllers/managerControllers/signUp.js";
 import { getBikes } from "../controllers/managerControllers/getBikes.js";
 import { getUsers } from "../controllers/managerControllers/getUsers.js";
 import {deleteUser} from "../controllers/managerControllers/deleteUser.js"
+import { getReservedBikes } from "../controllers/managerControllers/getReservedBike.js";
 
 
 
@@ -15,6 +16,7 @@ router.post("/managerSignUp", signUp )
 router.get("/getCompanyBikes", getBikes)
 router.get("/getUsers", getUsers)
 router.delete("/deleteUser", deleteUser)
+router.get("/getReservedBikes", getReservedBikes)
 
 
 
