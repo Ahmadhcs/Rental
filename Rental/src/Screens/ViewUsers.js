@@ -12,7 +12,7 @@ const ViewUsers = ( )  => {
             try {
                 const response = await axios.get('http://localhost:8001/api/getUsers');
                 setUsersArray(response.data.users); 
-                setManagersArray(response.data.managersArray)
+                setManagersArray(response.data.managers)
                 console.log(response.data.users)
             
             } catch (error) {
@@ -25,13 +25,33 @@ const ViewUsers = ( )  => {
     
     return (
         <>
-        {usersArray.map((user) =>{
-            <UserProfile user={user} />
-        })
+            <div className="text-center text-2xl font-semibold my-6">
+                App Users
+            </div>
+            <div className="flex flex-wrap -mx-2">
+                {usersArray.map((user) => {
+                    return (
+                        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
+                            <UserProfile user={user} />
+                        </div>
+                    );
+                })}
+            </div>
 
-        }
-
+            <div className="text-center text-2xl font-semibold my-6">
+                App Managers
+            </div>
+            <div className="flex flex-wrap -mx-2">
+                {managersArray.map((manager) => {
+                    return (
+                        <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
+                            <UserProfile user={manager} />
+                        </div>
+                    );
+                })}
+            </div>
         </>
+
     )
 }
 
