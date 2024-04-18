@@ -8,6 +8,8 @@ const ReservedBikeCard = ({ bike }) => {
         const minutes = duration % 60;
         return `${hours}h ${minutes}m left`;
     };
+
+    console.log(bike)
     
 
 
@@ -23,7 +25,7 @@ const ReservedBikeCard = ({ bike }) => {
                     Location: {bike.location}
                 </p>
                 <p className={`text-base text-red-500`}>
-                    Reserved
+                    Reserved by {bike.reservedBy}
                 </p>
                 {bike.reservationDuration && (
                     <p className="text-gray-700 text-base">

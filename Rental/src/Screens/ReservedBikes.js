@@ -22,7 +22,6 @@ const ReservedBikes = () => {
         fetchReservedBikes();
     }, []); 
 
-    console.log(reservedBikes)
 
     return (
         <>
