@@ -1,6 +1,7 @@
 // src/BikeProfile.js
 import React, { useState } from 'react';
 import BikeModal from './BikeModal.js';
+import bikeImage from "../Images/free-bicycle-icon-1054-thumb.png"
 
 const BikeProfile = ({ bike }) => {
   const [showModal, setShowModal] = useState(false);
@@ -17,7 +18,7 @@ const BikeProfile = ({ bike }) => {
           <p>Location: {bike.location}</p>
           <p>Rating: {bike.averageRating > 0 ?  bike.averageRating : 0 } / 5</p>
         </div>
-        <img src={bike.imageUrl} alt={`${bike.model}`} className="w-24 h-24 rounded-full" />
+        <img src={bikeImage} className="w-24 h-24 rounded-full" />
       </div>
       {showModal && <BikeModal bike={bike} onClose={toggleModal} />}
     </div>

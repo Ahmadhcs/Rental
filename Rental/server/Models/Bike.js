@@ -26,6 +26,8 @@ const BikeSchema = new Schema({
     reservedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
     reservationStart: { type: Date, default: null },
     reservationEnd: { type: Date, default: null },
+    reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
+
 
 })
 

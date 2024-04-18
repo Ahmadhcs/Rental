@@ -53,7 +53,7 @@ const BikeDashboard = () => {
       <div className='flex justify-between items-center w-full'>
           <h1 className="font-bold text-2xl mb-4">Bike Dashboard</h1>
           <button
-              onClick={handleLogout} // Make sure to define handleLogout or pass it as a prop
+              onClick={handleLogout}
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
           >
               Logout

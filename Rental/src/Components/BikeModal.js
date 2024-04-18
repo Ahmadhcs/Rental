@@ -5,9 +5,22 @@ const BikeModal = ({ bike, onClose }) => {
   const [reserved, setReserved] = useState(bike.isReserved);
   const [reservationDuration, setReservationDuration] = useState('');
   const [rating, setRating] = useState(bike.rating);
+  const [review, setReview] = useState('');
+  const [showReviewModal, setShowReviewModal] = useState(false);
 
   const currentUserId = localStorage.getItem('ID');  
   console.log(currentUserId)
+
+  const handleReviewSubmit = async () => {
+    try {
+      // Placeholder for review submission logic
+      alert('Review submitted: ' + review);
+      setShowReviewModal(false); // Close modal on successful submission
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      alert('Error submitting review.');
+    }
+  };
 
   const handleReserve = async () => {
     const reservationStart = new Date(); 
@@ -127,6 +140,39 @@ const BikeModal = ({ bike, onClose }) => {
             )}
           </div>
         )}
+        <div className="mt-4">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-4"
+          onClick={() => setShowReviewModal(true)}
+        >
+          Review
+        </button>
+
+        {showReviewModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white p-4 rounded-lg space-y-4">
+              <textarea
+                className="w-full p-2 border border-gray-300 rounded"
+                placeholder="Write your review here..."
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+              ></textarea>
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mx-4 rounded"
+                onClick={handleReviewSubmit}
+              >
+                Submit Review
+              </button>
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() => setShowReviewModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+        </div>
       </div>
     </div>
   );
