@@ -1,87 +1,95 @@
-// src/BikeModal.js
 import React, { useState } from 'react';
-import axios from "axios"
+import axios from 'axios';
 
 const BikeModal = ({ bike, onClose }) => {
-  const [rating, setRating] = useState(bike.rating);
-  const [reserved, setReserved] = useState(false);
+  const [reserved, setReserved] = useState(bike.isReserved);
+  const [reservationDuration, setReservationDuration] = useState('');
+  const currentUserId = localStorage.getItem('ID');  
+  console.log(currentUserId)
 
-  const handleReserve = () => {
-    // Placeholder for reservation logic
-    setReserved(true);
-  };
+  const handleReserve = async () => {
+    const reservationStart = new Date(); // Reservation starts now
+    const reservationEnd = new Date(reservationStart.getTime() + parseInt(reservationDuration) * 60000); // End time based on selected duration
 
-  const handleRate = async() =>{
-
-    try{
-      const response = await axios.post("http://localhost:8001/api/rateBike", {
-        userID: localStorage.getItem("ID"), 
+    try {
+      const response = await axios.post('http://localhost:8001/api/reserveBike', {
         bikeID: bike._id,
-        rating
-      })
+        userID: currentUserId,
+        reservationStart: reservationStart.toISOString(),
+        reservationEnd: reservationEnd.toISOString()
+      });
 
-      // if(response.status) send alert that it sas successfull 
-
-    }catch(error){
-
+      if (response.status === 200) {
+        alert('Bike reserved successfully!');
+        setReserved(true);
+        onClose(); // Optionally close the modal
+      }
+    } catch (error) {
+      console.error('Error reserving bike:', error);
+      alert('Error reserving bike.');
     }
-
-  }
-
-  const handleRatingChange = (e) => {
-    setRating(e.target.value);
   };
 
-  const handleCancelReservation = () => {
-    // Placeholder for cancel reservation logic
-    setReserved(false);
+  const handleCancelReservation = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:8001/api/cancelReservation?bikeID=${bike._id}&userID=${currentUserId}`);
+      
+      if (response.status === 200) {
+        alert('Reservation cancelled successfully!');
+        setReserved(false);
+        onClose(); // Optionally close the modal
+      }
+    } catch (error) {
+      console.error('Error canceling reservation:', error);
+      alert('Error canceling reservation.');
+    }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-8 rounded relative">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-0 right-0 mt-4 mr-4 bg-transparent hover:bg-gray-200 p-2 rounded-full"
-          aria-label="Close"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
+      <div className="bg-white p-8 rounded-lg relative w-full max-w-md">
+        <button onClick={onClose} className="absolute top-0 right-0 mt-4 mr-4 text-black bg-transparent hover:bg-gray-200 p-2 rounded-full">
+          <span>&times;</span>
         </button>
-        
+
         <h2 className="text-lg font-bold mb-4">{bike.model}</h2>
         <div className="mb-4">Color: {bike.color}</div>
         <div className="mb-4">Location: {bike.location}</div>
-        <div className="mb-4">Rating: {bike.averageRating} / 5</div>
+        <div className="mb-4">Rating: {bike.rating} / 5</div>
 
-        <div>
-          <label htmlFor="rating" className="block mb-2">Rate the bike:</label>
-          <select id="rating" value={rating} onChange={handleRatingChange} className="border-gray-300 rounded-md">
-            {[1, 2, 3, 4, 5].map(score => (
-              <option key={score} value={score}>{score}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mt-4">
-          {!reserved ? (
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleReserve}>
+        {!reserved ? (
+          <div className="mt-4">
+            <label htmlFor="duration" className="block mb-2">Select Duration:</label>
+            <select id="duration" value={reservationDuration} onChange={(e) => setReservationDuration(e.target.value)} className="border-gray-300 rounded-md w-full">
+              <option value="">Select Duration</option>
+              <option value="30">30 mins</option>
+              <option value="60">1 hour</option>
+              <option value="180">3 hours</option>
+            </select>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-4"
+              onClick={handleReserve}
+              disabled={!reservationDuration}
+            >
               Reserve
             </button>
-          ) : (
-            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={handleCancelReservation}>
-              Cancel Reservation
-            </button>
-          )}
-        </div>
-
-        <div className="mt-4">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleRate}>
-              Rate
-            </button>
-        </div>
+          </div>
+        ) : (
+          <div className="mt-4">
+            <p className="mb-4">Reserved from: {new Date(bike.reservationStart).toLocaleString()}</p>
+            <p className="mb-4">Reserved until: {new Date(bike.reservationEnd).toLocaleString()}</p>
+            {currentUserId === bike.reservedBy ? (
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full"
+                onClick={handleCancelReservation}
+              >
+                Cancel Reservation
+              </button>
+            ) : (
+              <p className="text-red-500">Bike is already reserved.</p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
