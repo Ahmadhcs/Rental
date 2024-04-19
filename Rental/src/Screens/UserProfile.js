@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const UserProfile = ({ userId }) => {
     const [user, setUser] = useState(null);
     const [reviews, setReviews] = useState([]); 
+    const token = localStorage.getItem("token")
     const navigate = useNavigate();
 
 
@@ -15,6 +16,9 @@ const UserProfile = ({ userId }) => {
                 const response = await axios.get(`http://localhost:8001/api/getUserInfo`, {
                     params:{
                         userID: localStorage.getItem("ID")
+                    },
+                    headers: {
+                        'Authorization': `Bearer ${token}`
                     }
                 });
                 setUser(response.data.user);

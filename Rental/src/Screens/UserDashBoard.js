@@ -13,10 +13,16 @@ const BikeDashboard = () => {
     location: ''
   });
 
+  const token = localStorage.getItem("token")
+
   useEffect(() => {
     const fetchBikes = async () => {
       try {
-        const response = await axios.get('http://localhost:8001/api/getAllBikes');
+        const response = await axios.get('http://localhost:8001/api/getAllBikes', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+        }
+        });
         setBikeArray(response.data.bikes);
         setFilteredBikes(response.data.bikes);
       } catch (error) {

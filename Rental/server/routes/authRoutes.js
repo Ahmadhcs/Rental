@@ -6,11 +6,14 @@ import { rateBike } from "../controllers/userControllers/rateBike.js";
 import { createReview } from "../controllers/userControllers/createReview.js";
 import { getBikeReviews } from "../controllers/userControllers/getBikeReviews.js";
 import { getUserInfo } from "../controllers/userControllers/getUserInfo.js";
+import requireAuth from "../middleware/requireAuth.js";
 
 const router = express.Router();
 
 router.post("/signIn", signIn)
 router.post("/signUp", signUp)
+
+router.use(requireAuth)
 router.get("/getAllBikes", getAllBikes)
 router.post("/rateBike", rateBike)
 router.post("/createReview", createReview)

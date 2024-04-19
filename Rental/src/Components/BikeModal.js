@@ -9,6 +9,7 @@ const BikeModal = ({ bike, onClose }) => {
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [showReviews, setShowReviews] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const token = localStorage.getItem("token")
 
 
   const currentUserId = localStorage.getItem('ID');  
@@ -19,7 +20,11 @@ const BikeModal = ({ bike, onClose }) => {
       const response = await axios.get(`http://localhost:8001/api/getBikeReviews`, {
         params: {
           bikeID: bike._id
+        }, 
+        headers: {
+          'Authorization': `Bearer ${token}` 
         }
+        
       });
 
       setReviews(response.data);
@@ -38,6 +43,10 @@ const BikeModal = ({ bike, onClose }) => {
         userID: localStorage.getItem("ID"),
         text: review, 
         rating
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}` 
+        }
       })
       alert('Review submitted: ' + review);
       setShowReviewModal(false); 
@@ -58,6 +67,10 @@ const BikeModal = ({ bike, onClose }) => {
         userID: currentUserId,
         reservationStart: reservationStart.toISOString(),
         reservationEnd: reservationEnd.toISOString()
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}` 
+        }
       });
 
       if (response.status === 200) {
@@ -79,6 +92,10 @@ const BikeModal = ({ bike, onClose }) => {
         userID: localStorage.getItem("ID"), 
         bikeID: bike._id,
         rating
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}` 
+        }
       })
 
       window.location.reload();
@@ -95,12 +112,18 @@ const BikeModal = ({ bike, onClose }) => {
   };
 
 
+
   const handleCancelReservation = async () => {
     try {
-      const response = await axios.delete(`http://localhost:8001/api/cancelReserve?bikeID=${bike._id}&userID=${currentUserId}`);
+      const response = await axios.delete(`http://localhost:8001/api/cancelReserve?bikeID=${bike._id}&userID=${currentUserId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}` 
+      }
+      });
       
       if (response.status === 200) {
         alert('Reservation cancelled successfully!');
+        window.location.reload();
         setReserved(false);
         onClose(); 
       }
