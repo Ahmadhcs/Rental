@@ -29,7 +29,6 @@ const ManagerLanding = () =>{
         navigate("/ManagerDash")
       } else {
         console.error("API call failed:", response);
-        alert("Submission failed.");
       }
 
 
@@ -37,6 +36,8 @@ const ManagerLanding = () =>{
 
     }catch (error){
       console.log(error)
+      alert(error.response.data.error)
+
     }
     // navigate('/dashboard');
   };

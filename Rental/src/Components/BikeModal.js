@@ -41,6 +41,7 @@ const BikeModal = ({ bike, onClose }) => {
       })
       alert('Review submitted: ' + review);
       setShowReviewModal(false); 
+      window.location.reload();
     } catch (error) {
       console.error('Error submitting review:', error);
       alert('Error submitting review.');
@@ -62,6 +63,7 @@ const BikeModal = ({ bike, onClose }) => {
       if (response.status === 200) {
         alert('Bike reserved successfully!');
         setReserved(true);
+        window.location.reload();
         onClose(); 
       }
     } catch (error) {
@@ -79,8 +81,10 @@ const BikeModal = ({ bike, onClose }) => {
         rating
       })
 
+      window.location.reload();
 
     }catch(error){
+      console.log("error", error)
 
     }
 
