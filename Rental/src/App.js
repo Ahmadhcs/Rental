@@ -12,6 +12,7 @@ import ReservedBikes from './Screens/ReservedBikes.js';
 import ViewUsers from './Screens/ViewUsers.js';
 import UsersReservedPage from './Screens/UsersReservedPage.js';
 import UserProfile from './Screens/UserProfile.js';
+import ProtectedRoute from './Components/ProtectedRoute.js';
 function App() {
   return (
     <Router>
@@ -27,13 +28,65 @@ function App() {
 
 
         {/* User and Manager Menus */}
-        <Route path="/UserDash" element={<UserDashBoard />} />
-        <Route path="/ManagerDash" element={<ManagerDash />} />
-        <Route path='/ManagerBikes' element={<ManagerBikes />} /> 
-        <Route path='/ReservedBikes' element={<ReservedBikes />} /> 
-        <Route path="/ViewUsers" element={<ViewUsers />} />
-        <Route path="/ReservedUsers" element={<UsersReservedPage />} />
-        <Route path="/UserProfile" element={<UserProfile />} />
+        <Route 
+          path="/UserDash" 
+          element={
+            <ProtectedRoute>
+              <UserDashBoard />
+            </ProtectedRoute>
+          } 
+        />
+        
+        
+        {/* Protected Routes */}
+        <Route 
+          path="/ManagerDash" 
+          element={
+            <ProtectedRoute>
+              <ManagerDash />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path='/ManagerBikes' 
+          element={
+            <ProtectedRoute>
+              <ManagerBikes />
+            </ProtectedRoute>
+          } 
+        /> 
+        <Route 
+          path='/ReservedBikes' 
+          element={
+            <ProtectedRoute>
+              <ReservedBikes />
+            </ProtectedRoute>
+          } 
+        /> 
+        <Route 
+          path="/ViewUsers" 
+          element={
+            <ProtectedRoute>
+              <ViewUsers />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/ReservedUsers" 
+          element={
+            <ProtectedRoute>
+              <UsersReservedPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/UserProfile" 
+          element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          } 
+        />
 
 
 
