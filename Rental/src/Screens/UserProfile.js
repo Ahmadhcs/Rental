@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import profileImage from "../Images/profile-icon-9.png"
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = ({ userId }) => {
     const [user, setUser] = useState(null);
     const [reviews, setReviews] = useState([]); 
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -28,7 +30,13 @@ const UserProfile = ({ userId }) => {
     if (!user) return <div>Loading...</div>;
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 flex flex-col items-center">
+            <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4  rounded focus:outline-none focus:shadow-outline"
+                onClick={() => navigate("/userDash")}>
+                Go Back
+            </button>
+
             <div className="flex items-center space-x-4">
                 <img src={profileImage} alt="Profile" className="h-24 w-24 rounded-full" />
                 <div>

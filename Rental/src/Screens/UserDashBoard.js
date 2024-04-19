@@ -59,6 +59,11 @@ const BikeDashboard = () => {
               Logout
           </button>
       </div>
+      <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-3  rounded focus:outline-none focus:shadow-outline"
+                onClick={() => navigate("/userProfile")}>
+                Profile
+            </button>
       <div className="mb-4 flex flex-col md:flex-row md:items-end md:space-x-2">
         <div>
           <select
