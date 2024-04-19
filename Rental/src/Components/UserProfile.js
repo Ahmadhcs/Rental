@@ -3,11 +3,15 @@ import userImage from '../Images/profile-icon-9.png';
 import axios from "axios"
 
 const UserProfile = ({ user }) => {
-    console.log(user)
+    const token = localStorage.getItem("ID")
 
     const handleDelete = async() =>{
         try{
-            await axios.delete(`http://localhost:8001/api/deleteUser?userID=${user._id}`)
+            await axios.delete(`http://localhost:8001/api/deleteUser?userID=${user._id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
 
         }catch{
 

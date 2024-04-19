@@ -24,7 +24,7 @@ export const getAllBikes = async(req, res) => {
             }
         ]);
 
-        res.status(200).send({ bikes: bikesWithRatings });
+        res.send({ bikes: bikesWithRatings });
     }catch(error){
         console.log(error)
     }

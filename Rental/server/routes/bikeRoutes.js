@@ -4,13 +4,14 @@ import { deleteBike } from "../controllers/managerControllers/deleteBike.js";
 import { editBike } from "../controllers/managerControllers/editBike.js";
 import { reserveBike } from "../controllers/userControllers/reserveBike.js";
 import { cancelReserve } from "../controllers/userControllers/cancelReserve.js";
+import requireManagerAuth from "../middleware/requireManagerAuth.js";
 
 
 const router = express.Router();
 
-router.post("/addBike", addBike)
-router.delete("/deleteBike", deleteBike)
-router.put("/editBike", editBike)
+router.post("/addBike", requireManagerAuth, addBike)
+router.delete("/deleteBike" , requireManagerAuth, deleteBike)
+router.put("/editBike", requireManagerAuth, editBike)
 router.post("/reserveBike", reserveBike)
 router.delete("/cancelReserve", cancelReserve)
 

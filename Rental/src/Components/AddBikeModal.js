@@ -5,6 +5,7 @@ const AddBikeModal = ({ isOpen, onClose }) => {
     const [model, setModel] = useState('');
     const [color, setColor] = useState('');
     const [location, setLocation] = useState('');
+    const token = localStorage.getItem("ID")
 
 
     if (!isOpen) return null;
@@ -17,7 +18,12 @@ const AddBikeModal = ({ isOpen, onClose }) => {
                 color, 
                 location
 
-            })
+            } , {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+            )
 
 
         }catch(error){

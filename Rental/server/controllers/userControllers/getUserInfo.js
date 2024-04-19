@@ -19,12 +19,11 @@ export const getUserInfo = async (req, res) => {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email,
-                profilePicture: user.profilePicture
             },
             reviews
         });
     } catch (error) {
         console.error('Failed to retrieve user and reviews:', error);
-        res.status(500).json({ error: 'Server error' });
+        // res.json({ error: 'Server error' });
     }
 };

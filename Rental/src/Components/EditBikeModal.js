@@ -7,8 +7,8 @@ const EditBikeModal = ({ bike, onClose, onSave }) => {
         model: '',
         color: '',
         location: ''
-        // Add other fields as necessary
     });
+    const token = localStorage.getItem("ID")
 
 
     useEffect(() => {
@@ -34,6 +34,10 @@ const EditBikeModal = ({ bike, onClose, onSave }) => {
             const response = await axios.put(`http://localhost:8001/api/editBike`, {
                 editData,
                 bikeID: bike._id
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
             onSave(response.data); 
             onClose(); 

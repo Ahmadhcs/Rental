@@ -8,6 +8,7 @@ const ManagerBikes = () => {
     const [bikeArray, setBikeArray] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
     const navigate = useNavigate();
+    const token = localStorage.getItem("ID")
 
     const openModal = () => {
         setModalOpen(true);
@@ -20,7 +21,10 @@ const ManagerBikes = () => {
                 {
                     params: {
                         managerID: localStorage.getItem("ID")
-                    }
+                    }, 
+                    headers: {
+                        'Authorization': `Bearer ${token}` 
+                      }
                 }
                 );
                 setBikeArray(response.data.bikes); 

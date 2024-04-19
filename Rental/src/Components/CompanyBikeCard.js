@@ -6,6 +6,7 @@ import bikeImage from "../Images/free-bicycle-icon-1054-thumb.png"
 const CompanyBikeCard = ({bike}) =>{
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const token = localStorage.getItem("ID")
 
     const handleEdit = async() => {
         setIsEditModalOpen(true);
@@ -14,7 +15,11 @@ const CompanyBikeCard = ({bike}) =>{
     const handleDelete = async() =>{
         console.log(bike)
         try{
-            const response = await axios.delete(`http://localhost:8001/api/deleteBike?bikeID=${bike._id}`)
+            const response = await axios.delete(`http://localhost:8001/api/deleteBike?bikeID=${bike._id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
 
         }catch(error){
             console.log(error)

@@ -6,12 +6,16 @@ import { useNavigate } from 'react-router-dom';
 const ReservedBikes = () => {
     const [reservedBikes, setReservedBikes] = useState([]);
     const navigate = useNavigate();
+    const token = localStorage.getItem("ID")
 
     useEffect(() => {
         const fetchReservedBikes = async () => {
             try {
                 const response = await axios.get('http://localhost:8001/api/getReservedBikes', {
-                    params: { managerID: localStorage.getItem("ID") }
+                    params: { managerID: localStorage.getItem("ID") },
+                    headers: {
+                        'Authorization': `Bearer ${token}` 
+                      }
                 });
                 setReservedBikes(response.data);
             } catch (error) {

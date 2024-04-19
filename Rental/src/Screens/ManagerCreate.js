@@ -29,7 +29,10 @@ const ManagerCreate = () =>{
           lastName, 
           email, 
           password
-      })
+      } 
+      
+      
+      )
   
   
         if (response.status === 200 || response.status === 201) {

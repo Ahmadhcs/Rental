@@ -12,13 +12,11 @@ const router = express.Router();
 
 router.post("/signIn", signIn)
 router.post("/signUp", signUp)
-
-router.use(requireAuth)
-router.get("/getAllBikes", getAllBikes)
-router.post("/rateBike", rateBike)
-router.post("/createReview", createReview)
-router.get("/getBikeReviews", getBikeReviews)
-router.get("/getUserInfo",getUserInfo )
+router.get("/getAllBikes", requireAuth,  getAllBikes)
+router.post("/rateBike", requireAuth, rateBike)
+router.post("/createReview", requireAuth,createReview)
+router.get("/getBikeReviews", requireAuth, getBikeReviews)
+router.get("/getUserInfo",requireAuth,  getUserInfo )
 
 
 
