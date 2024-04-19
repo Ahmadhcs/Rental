@@ -7,15 +7,40 @@ const BikeModal = ({ bike, onClose }) => {
   const [rating, setRating] = useState(bike.rating);
   const [review, setReview] = useState('');
   const [showReviewModal, setShowReviewModal] = useState(false);
+  const [showReviews, setShowReviews] = useState(false);
+  const [reviews, setReviews] = useState([]);
+
 
   const currentUserId = localStorage.getItem('ID');  
   console.log(currentUserId)
 
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8001/api/getBikeReviews`, {
+        params: {
+          bikeID: bike._id
+        }
+      });
+
+      setReviews(response.data);
+      setShowReviews(true);
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+      alert('Error fetching reviews.');
+    }
+  };
+
+
   const handleReviewSubmit = async () => {
     try {
-      // Placeholder for review submission logic
+      const response = await axios.post("http://localhost:8001/api/createReview", {
+        bikeID: bike._id,
+        userID: localStorage.getItem("ID"),
+        text: review, 
+        rating
+      })
       alert('Review submitted: ' + review);
-      setShowReviewModal(false); // Close modal on successful submission
+      setShowReviewModal(false); 
     } catch (error) {
       console.error('Error submitting review:', error);
       alert('Error submitting review.');
@@ -172,6 +197,35 @@ const BikeModal = ({ bike, onClose }) => {
             </div>
           </div>
         )}
+
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-4"
+          onClick={fetchReviews}
+        >
+          Show Reviews
+        </button>
+
+                {showReviews && (
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center p-6">
+            <div className="bg-white w-full max-w-4xl rounded-lg shadow-xl overflow-auto max-h-full">
+              <div className="p-6 space-y-6">
+                {reviews.length ? reviews.map((review, index) => (
+                  <div key={index} className="p-4 border-b border-gray-300 last:border-b-0">
+                    <p className="text-lg font-semibold">{review.user.firstName} {review.user.lastName}</p>
+                    <p className="text-sm">{review.text}</p>
+                  </div>
+                )) : <p className="text-center text-lg">No reviews yet.</p>}
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded self-end"
+                  onClick={() => setShowReviews(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         </div>
       </div>
     </div>

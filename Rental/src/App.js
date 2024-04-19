@@ -11,6 +11,7 @@ import ManagerDash from './Screens/ManagerDash.js';
 import ReservedBikes from './Screens/ReservedBikes.js';
 import ViewUsers from './Screens/ViewUsers.js';
 import UsersReservedPage from './Screens/UsersReservedPage.js';
+import UserProfile from './Screens/UserProfile.js';
 function App() {
   return (
     <Router>
@@ -32,6 +33,7 @@ function App() {
         <Route path='/ReservedBikes' element={<ReservedBikes />} /> 
         <Route path="/ViewUsers" element={<ViewUsers />} />
         <Route path="/ReservedUsers" element={<UsersReservedPage />} />
+        <Route path="/UserProfile" element={<UserProfile />} />
 
 
 
