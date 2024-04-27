@@ -6,6 +6,9 @@ import morgan from "morgan";
 import authRoutes from "./routes/authRoutes.js";
 import bikeRoutes from "./routes/bikeRoutes.js"
 import managerRoutes from "./routes/managerRoutes.js"
+import {resetExpiredReservations} from "./Schedulers/resetReservations.js"
+import cron from 'node-cron';
+
 
 dotenv.config();
 
@@ -30,6 +33,10 @@ app.get('/', (req, res) => {
 app.use("/api", authRoutes);
 app.use("/api", bikeRoutes);
 app.use("/api", managerRoutes)
+
+cron.schedule('* * * * *', resetExpiredReservations, {
+  scheduled: true,
+});
 
 
 // Server Start
